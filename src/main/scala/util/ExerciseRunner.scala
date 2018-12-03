@@ -1,6 +1,6 @@
 package util
 
-import exercises.Day2
+import exercises.Day3
 
 import scala.io.Source
 
@@ -10,8 +10,8 @@ object ExerciseRunner extends App {
     Source.fromResource(src).getLines
   }
 
-  val lines = readFile("day2.txt").toList
-  println(Day2.getChecksum(lines))
-  val pair = Day2.findBoxPair(lines)
-  println(pair.map(p => Day2.commonLetters(p._1, p._2)).get.mkString(""))
+  val lines = readFile("day3.txt").toList
+  val claims = Day3.parseInput(lines)
+  println(Day3.inchesOfOverlap(claims))
+  println(Day3.findNoOverlapSquare(claims))
 }
