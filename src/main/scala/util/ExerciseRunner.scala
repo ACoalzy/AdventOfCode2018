@@ -12,6 +12,7 @@ object ExerciseRunner extends App {
 
   val lines = readFile("day3.txt").toList
   val claims = Day3.parseInput(lines)
-  println(Day3.inchesOfOverlap(claims))
-  println(Day3.findNoOverlapSquare(claims))
+  println(Day3.overlapCount(claims))
+  println(Day3.findNoOverlapSquares(claims))
+  println(Day3.findNoOverlapSquaresAlt(claims))
 }
