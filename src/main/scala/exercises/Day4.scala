@@ -4,29 +4,35 @@ import scala.collection.mutable
 
 object Day4 {
 
-  sealed trait EntryDetail
-  case class GuardStart(id: Int) extends EntryDetail
-  case object Sleep extends EntryDetail
-  case object Awake extends EntryDetail
-
-  case class Entry(date: String, minute: Int, details: EntryDetail)
+  sealed trait Entry {
+    def date: String
+    val minute = date.split(":")(1).toInt
+  }
+  case class GuardStart(id: Int, date: String) extends Entry
+  case class Sleep(date: String) extends Entry
+  case class Awake(date: String) extends Entry
 
   def parseInput(seq: Seq[String]): Seq[Entry] = {
-    seq.map(s => {
-      val details = s.split("]")(1).drop(1) match {
-        case s if s.contains("begins") => GuardStart(s.split(" ")(1).drop(1).toInt)
-        case s if s.contains("asleep") => Sleep
-        case _ => Awake
-      }
-      Entry(s.split("]")(0).drop(1), s.split("]")(0).split(":")(1).toInt, details)
-    }).sortBy(_.date)
+    val regex = "\\[(.*)\\] (.*)".r
+    val (guardRgx, sleepRgx, awakeRgx) = ("Guard #(\\d+) begins shift".r, "falls asleep".r, "wakes up".r)
+
+    seq.map {
+      case regex(date, detailString) =>
+        detailString match {
+          case guardRgx(id) => GuardStart(id.toInt, date)
+          case sleepRgx() => Sleep(date)
+          case awakeRgx() => Awake(date)
+        }
+    }.sortBy(_.date)
   }
 
   private def sleepMap(entries: Seq[Entry]) = {
     entries.foldLeft(0, -1, mutable.Map[Int, Seq[Int]]()) { case ((prevMin, guardId, sleepMap), e) =>
-      if (e.details == Awake) sleepMap.update(guardId, (prevMin until e.minute).toList ++ sleepMap.getOrElse(guardId, Seq()))
-      e.details match {
-        case GuardStart(id) => (e.minute, id, sleepMap)
+      e match {
+        case GuardStart(id, _) => (e.minute, id, sleepMap)
+        case Awake(_) =>
+          sleepMap.update(guardId, (prevMin until e.minute).toList ++ sleepMap.getOrElse(guardId, Seq()))
+          (e.minute, guardId, sleepMap)
         case _ => (e.minute, guardId, sleepMap)
       }
     }._3.toMap
