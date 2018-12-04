@@ -1,7 +1,5 @@
 package exercises
 
-import util.Timer
-
 import scala.collection.mutable
 
 object Day3 {
@@ -33,10 +31,7 @@ object Day3 {
     grid.map(_.toArray).toArray
   }
 
-  def overlapCount(claims: Seq[Claim]): Int = {
-    val grid = generateGrid(claims)
-    grid.flatten.count(_ > 1)
-  }
+  def overlapCount(claims: Seq[Claim]): Int = generateGrid(claims).flatten.count(_ > 1)
 
   def findNoOverlapSquares(claims: Seq[Claim]): Seq[Int] = {
     val grid = generateGrid(claims)
