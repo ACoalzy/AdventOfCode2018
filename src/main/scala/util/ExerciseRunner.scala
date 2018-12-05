@@ -11,6 +11,6 @@ object ExerciseRunner extends App {
   }
 
   val lines = readFile("day5.txt").toList
-  println(Timer.time(Day5.compress(lines(0))))
-  println(Timer.time(Day5.superCompress(lines(0))))
+  println(Timer.time(Day5.compress(lines(0)).length))
+  println(Timer.time(Day5.superCompress(lines(0)).length))
 }
