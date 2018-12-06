@@ -2,7 +2,7 @@ package exercises
 
 object Day5 {
 
-  private def comparePolarities(a: Char, b: Char) = a != b && a.toUpper == b.toUpper
+  private def comparePolarities(a: Char, b: Char) = a.toUpper == b.toUpper && a != b
 
   def compress(s: String): String = {
     @annotation.tailrec

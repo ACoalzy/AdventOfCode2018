@@ -1,6 +1,6 @@
 package util
 
-import exercises.Day5
+import exercises._
 
 import scala.io.Source
 
@@ -10,7 +10,9 @@ object ExerciseRunner extends App {
     Source.fromResource(src).getLines
   }
 
-  val lines = readFile("day5.txt").toList
-  println(Timer.time(Day5.compress(lines(0)).length))
-  println(Timer.time(Day5.superCompress(lines(0)).length))
+  val lines = readFile("day6.txt").toList
+  val model = Day6.parseInput(lines)
+  println(Day6.maxArea(model))
+  println(Day6.totalManhattanArea(10000, model))
+
 }
