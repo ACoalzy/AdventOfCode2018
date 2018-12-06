@@ -11,8 +11,9 @@ object ExerciseRunner extends App {
   }
 
   val lines = readFile("day6.txt").toList
+
   val model = Day6.parseInput(lines)
-  println(Day6.maxArea(model))
-  println(Day6.totalManhattanArea(10000, model))
+  println(Timer.time(Day6.maxArea(model)))
+  println(Timer.time(Day6.totalManhattanArea(10000, model)))
 
 }

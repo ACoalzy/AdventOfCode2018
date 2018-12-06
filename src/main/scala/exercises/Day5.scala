@@ -13,7 +13,7 @@ object Day5 {
       case Nil => res
     }
 
-    go(s.toList, List()).mkString("")
+    go(s.toList, List()).mkString
   }
 
   def superCompress(s: String): String = {
