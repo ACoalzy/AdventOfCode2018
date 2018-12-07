@@ -10,10 +10,10 @@ object ExerciseRunner extends App {
     Source.fromResource(src).getLines
   }
 
-  val lines = readFile("day6.txt").toList
+  val lines = readFile("day7.txt").toList
 
-  val model = Day6.parseInput(lines)
-  println(Timer.time(Day6.maxArea(model)))
-  println(Timer.time(Day6.totalManhattanArea(10000, model)))
+  val nodes = Day7.parseInput(lines)
+  println(Day7.navigateTree(nodes))
+  println(Day7.navigateTreeWithHelpersTime(nodes, 5, 60))
 
 }
