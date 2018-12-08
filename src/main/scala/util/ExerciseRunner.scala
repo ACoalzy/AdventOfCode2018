@@ -12,8 +12,7 @@ object ExerciseRunner extends App {
 
   val lines = readFile("day8.txt").toList
   val input = Day8.parseInput(lines.head)
-  val root = Day8.parseNode(input)
-  println(Day8.sumMetadata(root._1))
-  println(Day8.complicatedSum(root._1))
-
+  val root = Day8.parseNode(input, Nil, Nil, Nil, None)
+  println(Day8.sumMetadata(List(root.get), 0))
+  println(Day8.complicatedSum(List(root.get), 0))
 }
