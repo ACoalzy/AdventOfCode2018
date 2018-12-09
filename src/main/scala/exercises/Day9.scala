@@ -6,7 +6,6 @@ object Day9 {
 
   private case class Node(value: Long) {
     self =>
-
       private var lefty: Node = null
       private var righty: Node = null
 
@@ -42,6 +41,27 @@ object Day9 {
   def parseInput(s: String): Rules = {
     val splits = s.split(" ")
     Rules(splits(0).toInt, splits(6).toInt)
+  }
+
+  implicit class VectorOps[A](self: Vector[A]) {
+    private def rotateRight(distance: Int) = self.takeRight(distance) ++ self.dropRight(distance)
+    private def rotateLeft(distance: Int) = self.drop(distance) ++ self.take(distance)
+    def rotate(distance: Int): Vector[A] =
+      if (distance >= 0) rotateRight(distance)
+      else rotateLeft(distance * -1)
+  }
+
+  def highestScoreVector(rules: Rules): Long = {
+    val players = Stream.continually(0 until rules.players).flatten
+    val game = (0 to rules.marbles).zip(players).foldLeft(Map.empty[Int, Long], Vector.empty[Int]) {
+      case ((scores, marbles), (marble, player)) =>
+        if (marble > 0 && marble % 23 == 0) {
+          val rotated = marbles.rotate(7)
+          (scores + (player -> (scores.getOrElse(player, 0l) + marble + rotated.head)), rotated.tail)
+        } else (scores, marble +: marbles.rotate(-2))
+    }
+
+    game._1.values.max
   }
 
   def highestScore(rules: Rules): Long = {
