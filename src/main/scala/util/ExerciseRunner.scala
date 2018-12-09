@@ -13,5 +13,5 @@ object ExerciseRunner extends App {
   val lines = readFile("day9.txt").toList
   val rules = Day9.parseInput(lines.head)
   println(Day9.highestScore(rules))
-//  println(Day9.highestScore(rules.copy(marbles = rules.marbles * 100)))
+  println(Day9.highestScore(rules.copy(marbles = rules.marbles * 100)))
 }
