@@ -10,9 +10,8 @@ object ExerciseRunner extends App {
     Source.fromResource(src).getLines
   }
 
-  val lines = readFile("day8.txt").toList
-  val input = Day8.parseInput(lines.head)
-  val root = Day8.parseNode(input, Nil, Nil, Nil, None)
-  println(Day8.sumMetadata(List(root.get), 0))
-  println(Day8.complicatedSum(List(root.get), 0))
+  val lines = readFile("day9.txt").toList
+  val rules = Day9.parseInput(lines.head)
+  println(Day9.highestScore(rules))
+//  println(Day9.highestScore(rules.copy(marbles = rules.marbles * 100)))
 }
