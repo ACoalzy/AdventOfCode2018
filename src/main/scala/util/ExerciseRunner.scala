@@ -10,8 +10,10 @@ object ExerciseRunner extends App {
     Source.fromResource(src).getLines
   }
 
-//  val lines = readFile("day10.txt").toList
-  println(Day11.largestNxN(5468, 3, 3))
-  println(Day11.largestNxN(5468, 1, 300))
+  val lines = readFile("day12.txt").toList
+
+  val model = Day12.parseInput(lines.head, lines.drop(2))
+  println(Day12.runModel(model, 20))
+  println(Day12.runModel(model, 50000000000L))
 
 }
