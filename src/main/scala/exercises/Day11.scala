@@ -2,7 +2,9 @@ package exercises
 
 import scala.collection.mutable
 
-object Day11 {
+object Day11 extends DayN {
+
+  override val num: Int = 11
 
   private val size = 300
 
@@ -27,5 +29,8 @@ object Day11 {
       if (sum > max) (sum, (x+1, y+1, n)) else (max, (mx, my, mn))
     }
   }
+
+  println(Day11.largestNxN(5468, 3, 3))
+  println(Day11.largestNxN(5468, 1, 300))
 
 }

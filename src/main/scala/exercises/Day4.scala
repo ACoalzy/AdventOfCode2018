@@ -2,7 +2,9 @@ package exercises
 
 import scala.collection.mutable
 
-object Day4 {
+object Day4 extends DayN {
+
+  override val num: Int = 4
 
   sealed trait Entry {
     def date: String
@@ -59,4 +61,8 @@ object Day4 {
     sleepiest._1 * sleepiest._2
   }
 
+  val lines = readFile()
+  val entries = Day4.parseInput(lines)
+  println(Day4.sleepiestGuardAndMinute(entries))
+  println(Day4.sleepiestMinuteAndGuard(entries))
 }

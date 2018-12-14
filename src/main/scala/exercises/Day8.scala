@@ -1,6 +1,8 @@
 package exercises
 
-object Day8 {
+object Day8 extends DayN {
+
+  override val num: Int = 8
 
   case class Node(children: List[Node], metadata: List[Int])
 
@@ -45,4 +47,8 @@ object Day8 {
     case Nil => res
   }
 
+  val input = Day8.parseInput(readFile().head)
+  val root = Day8.parseNode(input, Nil, Nil, Nil, None)
+  println(Day8.sumMetadata(List(root.get), 0))
+  println(Day8.complicatedSum(List(root.get), 0))
 }

@@ -1,6 +1,8 @@
 package exercises
 
-object Day14 {
+object Day14 extends DayN {
+
+  override val num: Int = 14
 
   private case class State(digits: Seq[Int], i1: Int, i2: Int)
 
@@ -41,5 +43,8 @@ object Day14 {
 
     go(0, 1, Vector(a, b), Seq(0, 1))
   }
+
+  println(Day14.recipesAfterX(3, 7, 110201, 10).mkString)
+  println(Day14.countPriorRecipes(3, 7, "110201"))
 
 }

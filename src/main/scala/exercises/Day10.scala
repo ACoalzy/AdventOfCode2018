@@ -2,7 +2,9 @@ package exercises
 
 import scala.collection.mutable
 
-object Day10 {
+object Day10 extends DayN {
+
+  override val num: Int = 10
 
   case class Point(x: Int, y: Int)
 
@@ -51,5 +53,10 @@ object Day10 {
     println(grid.map(_.map(i => if (i == 0) "." else "#").mkString).mkString("\n"))
     println()
   }
+
+  val points = Day10.parseInput(readFile())
+  val wordPoints = Day10.findWord(points)
+  Day10.display(wordPoints)
+  println(Day10.timeWordFind(points, 0))
 
 }

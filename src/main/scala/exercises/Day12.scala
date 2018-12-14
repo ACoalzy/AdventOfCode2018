@@ -1,6 +1,8 @@
 package exercises
 
-object Day12 {
+object Day12 extends DayN {
+
+  override val num: Int = 12
 
   private val padSize = 2
   private val pad = "." * padSize
@@ -32,5 +34,10 @@ object Day12 {
       else runModel(Model(strip(newState), model.shift + newState.indexOf('#') - padSize, model.rules), generations - 1)
     }
   }
+
+  val lines = readFile()
+  val model = Day12.parseInput(lines.head, lines.drop(2))
+  println(Day12.runModel(model, 20))
+  println(Day12.runModel(model, 50000000000L))
 
 }

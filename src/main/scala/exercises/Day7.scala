@@ -1,6 +1,8 @@
 package exercises
 
-object Day7 {
+object Day7 extends DayN {
+
+  override val num: Int = 7
 
   case class Node(parent: String, child: String)
 
@@ -45,5 +47,9 @@ object Day7 {
 
     go(Set(), List.empty[Worker], 0)
   }
+
+  val nodes = Day7.parseInput(readFile())
+  println(Day7.navigateTree(nodes))
+  println(Day7.navigateTreeWithHelpersTime(nodes, 5, 60))
 
 }

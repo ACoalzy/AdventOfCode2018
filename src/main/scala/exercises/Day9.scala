@@ -1,6 +1,8 @@
 package exercises
 
-object Day9 {
+object Day9 extends DayN {
+
+  override val num: Int = 9
 
   case class Rules(players: Int, marbles: Int)
 
@@ -77,5 +79,9 @@ object Day9 {
 
     game._1.values.max
   }
+
+  val rules = Day9.parseInput(readFile().head)
+  println(Day9.highestScore(rules))
+  println(Day9.highestScore(rules.copy(marbles = rules.marbles * 100)))
 
 }

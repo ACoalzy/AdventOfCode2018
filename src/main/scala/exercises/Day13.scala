@@ -1,6 +1,8 @@
 package exercises
 
-object Day13 {
+object Day13 extends DayN {
+
+  override val num = 13
 
   private val cartChars = Set('>', '<', '^', 'v')
   private val hTrack = Set('-', '/', '\\', '+')
@@ -102,7 +104,10 @@ object Day13 {
       case h :: Nil => h
       case carts => lastCartStanding(model.copy(carts = carts.sortBy(c => (c.y, c.x))))
     }
-
   }
+
+  val model = Day13.parseInput(readFile())
+  println(Day13.simulateUntilCrash(model))
+  println(Day13.lastCartStanding(model))
 
 }

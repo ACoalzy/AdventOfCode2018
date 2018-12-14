@@ -1,6 +1,8 @@
 package exercises
 
-object Day1 {
+object Day1 extends DayN {
+
+  override val num: Int = 1
 
   sealed trait Function
   case object Add extends Function
@@ -38,5 +40,9 @@ object Day1 {
 
     go(Stream.continually(changes.map(Instruction.parse).toStream).flatten, Set(), 0)
   }
+
+  val lines = readFile()
+  println(Day1.processFrequencies(lines))
+  println(Day1.firstDuplicateFrequency(lines))
 
 }

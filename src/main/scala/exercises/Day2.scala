@@ -1,6 +1,8 @@
 package exercises
 
-object Day2 {
+object Day2 extends DayN {
+
+  override val num: Int = 2
 
   def getChecksum(seq: Seq[String]): Int = {
     def countContainsFreq(seq: Seq[Map[Char, Int]], freq: Int): Int = seq.count(_.values.exists(_ == freq))
@@ -14,5 +16,10 @@ object Day2 {
     val pairs = for (x <- seq; y <- seq) yield (x, y)
     pairs.find { case (s1, s2) => s1.intersect(s2).length == s1.length - 1 }
   }
+
+  val lines = readFile()
+  println(Day2.getChecksum(lines))
+  val pair = Day2.findBoxPair(lines)
+  println(pair.map(p => Day2.commonLetters(p._1, p._2)).get.mkString(""))
 
 }

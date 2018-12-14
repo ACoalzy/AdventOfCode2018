@@ -1,6 +1,8 @@
 package exercises
 
-object Day6 {
+object Day6 extends DayN {
+
+  override val num: Int = 6
 
   sealed trait Coord {
     def x: Int
@@ -50,4 +52,8 @@ object Day6 {
 
   def totalManhattanArea(limit: Int, model: Model): Int = model.allCoords.map(model.distanceSum).count(_ < limit)
 
+  val lines = readFile()
+  val model = Day6.parseInput(lines)
+  println(Day6.maxArea(model))
+  println(Day6.totalManhattanArea(10000, model))
 }

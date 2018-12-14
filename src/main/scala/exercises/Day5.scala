@@ -1,6 +1,8 @@
 package exercises
 
-object Day5 {
+object Day5 extends DayN {
+
+  override val num: Int = 5
 
   private def comparePolarities(a: Char, b: Char) = a.toUpper == b.toUpper && a != b
 
@@ -23,5 +25,9 @@ object Day5 {
       .map(compress)
       .minBy(_.length)
   }
+
+  val line = readFile().head
+  println(Day5.compress(line).length)
+  println(Day5.superCompress(line).length)
 
 }

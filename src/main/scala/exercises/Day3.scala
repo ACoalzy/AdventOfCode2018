@@ -2,7 +2,9 @@ package exercises
 
 import scala.collection.mutable
 
-object Day3 {
+object Day3 extends DayN {
+
+  override val num: Int = 3
 
   private val gridWidth = 1000
 
@@ -46,5 +48,9 @@ object Day3 {
       .foldLeft(mutable.ArrayBuffer(claims: _*))((cs, coord) => cs.filter(_.contains(coord)))
       .map(_.id).toList
   }
+
+  val claims = Day3.parseInput(readFile())
+  println(Day3.overlapCount(claims))
+  println(Day3.findNoOverlapSquares(claims))
 
 }
