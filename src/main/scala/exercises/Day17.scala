@@ -6,7 +6,8 @@ object Day17 extends DayN {
 
   override val num: Int = 17
 
-  case class Point(x: Int, y: Int, infinite: Boolean = false) {
+  case class Point(x: Int, y: Int) {
+    def above = Point(x, y - 1)
     def below = Point(x, y + 1)
     def left = Point(x - 1, y)
     def right = Point(x + 1, y)
@@ -28,16 +29,19 @@ object Day17 extends DayN {
     water.contains(p) && (isInfinite(p, _.left) || isInfinite(p, _.right))
   }
 
-  def flow(limit: Int, clay: Set[Point], water: Set[Point], p: Point): (Boolean, Set[Point]) = {
-    if (p.y > limit) (true, water)
-    else if (clay.contains(p) || water.contains(p)) (false, water)
-    else if (isFlowing(p.below, clay, water)) (true, water + p)
-    else flow(limit, clay, water + p, p.below) match {
-      case b @ (belowInfinite, _) if belowInfinite => b
-      case (_, belowWater) =>
-        val (leftInfinite, leftWater) = flow(limit, clay, belowWater, p.left)
-        val (rightInfinite, rightWater) = flow(limit, clay, leftWater, p.right)
-        (leftInfinite || rightInfinite, rightWater)
+  @annotation.tailrec
+  def flow(limit: Int, clay: Set[Point], water: Set[Point], acc: List[Point]): Set[Point] = {
+    def blocked(p: Point) = clay.contains(p) || water.contains(p)
+    acc match {
+      case h :: t =>
+        if (h.y > limit) flow(limit, clay, water, t)
+        else if (isFlowing(h.below, clay, water)) flow(limit, clay, water + h, t)
+        else if (blocked(h.below)) {
+          val tail = if (water.contains(h.above)) h.above :: t else t
+          flow(limit, clay, water + h, List(h.left, h.right).filterNot(blocked) ::: tail)
+        }
+        else flow(limit, clay, water + h, h.below :: t)
+      case Nil => water
     }
   }
 
@@ -55,19 +59,12 @@ object Day17 extends DayN {
     println()
   }
 
-  val lines = """x=495, y=2..7
-                |y=7, x=495..501
-                |x=501, y=3..7
-                |x=498, y=2..4
-                |x=506, y=1..2
-                |x=498, y=10..13
-                |x=504, y=10..13
-                |y=13, x=498..504""".stripMargin.split("\n").toList
-
   val spring = Point(500, 0)
   val clay = parseInput(readFile())
-  val water = flow(clay.maxBy(_.y).y, clay, Set(), spring)._2
-  println(water.count(_.y >= clay.minBy(_.y).y))
-  println(stopSpring(clay, water).size)
+  val water = flow(clay.maxBy(_.y).y, clay, Set(), List(spring))
+  val minY = clay.minBy(_.y).y
   prettyPrint(clay, water)
+  println(water.count(_.y >= minY))
+  println(stopSpring(clay, water).size)
+
 }
