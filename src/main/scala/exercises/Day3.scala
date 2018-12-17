@@ -49,8 +49,8 @@ object Day3 extends DayN {
       .map(_.id).toList
   }
 
-  val claims = Day3.parseInput(readFile())
-  println(Day3.overlapCount(claims))
-  println(Day3.findNoOverlapSquares(claims))
+  val claims = parseInput(readFile())
+  println(overlapCount(claims))
+  println(findNoOverlapSquares(claims))
 
 }

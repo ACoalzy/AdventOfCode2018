@@ -42,7 +42,7 @@ object Day1 extends DayN {
   }
 
   val lines = readFile()
-  println(Day1.processFrequencies(lines))
-  println(Day1.firstDuplicateFrequency(lines))
+  println(processFrequencies(lines))
+  println(firstDuplicateFrequency(lines))
 
 }

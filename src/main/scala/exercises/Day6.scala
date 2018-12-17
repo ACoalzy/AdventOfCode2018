@@ -53,7 +53,7 @@ object Day6 extends DayN {
   def totalManhattanArea(limit: Int, model: Model): Int = model.allCoords.map(model.distanceSum).count(_ < limit)
 
   val lines = readFile()
-  val model = Day6.parseInput(lines)
-  println(Day6.maxArea(model))
-  println(Day6.totalManhattanArea(10000, model))
+  val model = parseInput(lines)
+  println(maxArea(model))
+  println(totalManhattanArea(10000, model))
 }

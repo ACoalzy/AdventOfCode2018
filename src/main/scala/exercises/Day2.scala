@@ -18,8 +18,8 @@ object Day2 extends DayN {
   }
 
   val lines = readFile()
-  println(Day2.getChecksum(lines))
-  val pair = Day2.findBoxPair(lines)
-  println(pair.map(p => Day2.commonLetters(p._1, p._2)).get.mkString(""))
+  println(getChecksum(lines))
+  val pair = findBoxPair(lines)
+  println(pair.map(p => commonLetters(p._1, p._2)).get.mkString(""))
 
 }

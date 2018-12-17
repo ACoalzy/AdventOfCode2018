@@ -106,8 +106,8 @@ object Day13 extends DayN {
     }
   }
 
-  val model = Day13.parseInput(readFile())
-  println(Day13.simulateUntilCrash(model))
-  println(Day13.lastCartStanding(model))
+  val model = parseInput(readFile())
+  println(simulateUntilCrash(model))
+  println(lastCartStanding(model))
 
 }

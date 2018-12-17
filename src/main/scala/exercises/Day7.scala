@@ -48,8 +48,8 @@ object Day7 extends DayN {
     go(Set(), List.empty[Worker], 0)
   }
 
-  val nodes = Day7.parseInput(readFile())
-  println(Day7.navigateTree(nodes))
-  println(Day7.navigateTreeWithHelpersTime(nodes, 5, 60))
+  val nodes = parseInput(readFile())
+  println(navigateTree(nodes))
+  println(navigateTreeWithHelpersTime(nodes, 5, 60))
 
 }

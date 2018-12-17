@@ -36,8 +36,8 @@ object Day12 extends DayN {
   }
 
   val lines = readFile()
-  val model = Day12.parseInput(lines.head, lines.drop(2))
-  println(Day12.runModel(model, 20))
-  println(Day12.runModel(model, 50000000000L))
+  val model = parseInput(lines.head, lines.drop(2))
+  println(runModel(model, 20))
+  println(runModel(model, 50000000000L))
 
 }

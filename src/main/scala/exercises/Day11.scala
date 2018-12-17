@@ -30,7 +30,7 @@ object Day11 extends DayN {
     }
   }
 
-  println(Day11.largestNxN(5468, 3, 3))
-  println(Day11.largestNxN(5468, 1, 300))
+  println(largestNxN(5468, 3, 3))
+  println(largestNxN(5468, 1, 300))
 
 }

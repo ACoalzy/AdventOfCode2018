@@ -44,7 +44,7 @@ object Day14 extends DayN {
     go(0, 1, Vector(a, b), Seq(0, 1))
   }
 
-  println(Day14.recipesAfterX(3, 7, 110201, 10).mkString)
-  println(Day14.countPriorRecipes(3, 7, "110201"))
+  println(recipesAfterX(3, 7, 110201, 10).mkString)
+  println(countPriorRecipes(3, 7, "110201"))
 
 }

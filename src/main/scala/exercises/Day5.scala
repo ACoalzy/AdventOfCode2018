@@ -27,7 +27,7 @@ object Day5 extends DayN {
   }
 
   val line = readFile().head
-  println(Day5.compress(line).length)
-  println(Day5.superCompress(line).length)
+  println(compress(line).length)
+  println(superCompress(line).length)
 
 }

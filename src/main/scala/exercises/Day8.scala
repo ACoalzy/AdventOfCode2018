@@ -47,8 +47,8 @@ object Day8 extends DayN {
     case Nil => res
   }
 
-  val input = Day8.parseInput(readFile().head)
-  val root = Day8.parseNode(input, Nil, Nil, Nil, None)
-  println(Day8.sumMetadata(List(root.get), 0))
-  println(Day8.complicatedSum(List(root.get), 0))
+  val input = parseInput(readFile().head)
+  val root = parseNode(input, Nil, Nil, Nil, None)
+  println(sumMetadata(List(root.get), 0))
+  println(complicatedSum(List(root.get), 0))
 }

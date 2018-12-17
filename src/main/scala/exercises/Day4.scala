@@ -62,7 +62,7 @@ object Day4 extends DayN {
   }
 
   val lines = readFile()
-  val entries = Day4.parseInput(lines)
-  println(Day4.sleepiestGuardAndMinute(entries))
-  println(Day4.sleepiestMinuteAndGuard(entries))
+  val entries = parseInput(lines)
+  println(sleepiestGuardAndMinute(entries))
+  println(sleepiestMinuteAndGuard(entries))
 }

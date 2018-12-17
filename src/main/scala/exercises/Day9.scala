@@ -80,8 +80,8 @@ object Day9 extends DayN {
     game._1.values.max
   }
 
-  val rules = Day9.parseInput(readFile().head)
-  println(Day9.highestScore(rules))
-  println(Day9.highestScore(rules.copy(marbles = rules.marbles * 100)))
+  val rules = parseInput(readFile().head)
+  println(highestScore(rules))
+  println(highestScore(rules.copy(marbles = rules.marbles * 100)))
 
 }

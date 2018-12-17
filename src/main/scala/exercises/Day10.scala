@@ -54,9 +54,9 @@ object Day10 extends DayN {
     println()
   }
 
-  val points = Day10.parseInput(readFile())
-  val wordPoints = Day10.findWord(points)
-  Day10.display(wordPoints)
-  println(Day10.timeWordFind(points, 0))
+  val points = parseInput(readFile())
+  val wordPoints = findWord(points)
+  display(wordPoints)
+  println(timeWordFind(points, 0))
 
 }
