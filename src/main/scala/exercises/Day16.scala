@@ -4,7 +4,12 @@ object Day16 extends DayN {
 
   override val num: Int = 16
 
-  case class Command(op: Int, a: Int, b: Int, c: Int)
+  trait OpCommand {
+    def a: Int
+    def b: Int
+    def c: Int
+  }
+  case class Command(op: Int, a: Int, b: Int, c: Int) extends OpCommand
   case class Sample(before: Array[Int], command: Command, after: Array[Int])
 
   sealed trait Op
@@ -30,7 +35,7 @@ object Day16 extends DayN {
 
     private def b2i(b: Boolean): Int = if (b) 1 else 0
 
-    def runOp(op: Op, command: Command, before: Array[Int]): Array[Int] = {
+    def runOp(op: Op, command: OpCommand, before: Array[Int]): Array[Int] = {
       val (a, b, c) = (command.a, command.b, command.c)
       val func = op match {
         case Addr => before(a) + before(b)
