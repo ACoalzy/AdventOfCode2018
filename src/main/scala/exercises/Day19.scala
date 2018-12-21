@@ -19,7 +19,7 @@ object Day19 extends DayN {
     }).toArray)
   }
 
-  private def chooseOp(name: String): Op = name match {
+  def chooseOp(name: String): Op = name match {
     case "addr" => Addr
     case "addi" => Addi
     case "mulr" => Mulr
@@ -44,9 +44,6 @@ object Day19 extends DayN {
     else {
       val command = model.commands(acc(model.insReg))
       val after = Op.runOp(chooseOp(command.op), command, acc)
-      println(command)
-      println(after.updated(model.insReg, after(model.insReg) + 1).mkString(", "))
-      Thread.sleep(100)
       runProgram(model, after.updated(model.insReg, after(model.insReg) + 1))
     }
 
