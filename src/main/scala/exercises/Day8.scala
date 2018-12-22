@@ -19,13 +19,10 @@ object Day8 extends DayN {
     case (_, cch :: cct, mh :: mt, ch :: ct) if cch == 0 =>
       val node = Node(ch.reverse, ints.take(mh))
       (cct, ct) match {
-        case (pcch :: cctt, pch :: ctt) =>
-          parseNode(ints.drop(mh), (pcch - 1) :: cctt, mt, (node :: pch) :: ctt, Some(node))
-        case _ =>
-          parseNode(ints.drop(mh), cct, mt, ct, Some(node))
+        case (pcch :: cctt, pch :: ctt) => parseNode(ints.drop(mh), (pcch - 1) :: cctt, mt, (node :: pch) :: ctt, Some(node))
+        case _ => parseNode(ints.drop(mh), cct, mt, ct, Some(node))
       }
-    case (cc :: mc :: t, ccs, mcs, cs) =>
-      parseNode(t, cc :: ccs, mc :: mcs, Nil :: cs, latestNode)
+    case (cc :: mc :: t, ccs, mcs, cs) => parseNode(t, cc :: ccs, mc :: mcs, Nil :: cs, latestNode)
     case (Nil, _, _, _) => latestNode
     case _ => None
   }
