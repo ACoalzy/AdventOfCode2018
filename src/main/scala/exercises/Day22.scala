@@ -10,6 +10,7 @@ object Day22 extends DayN {
 
   case class Point(x: Int, y: Int) {
     def adjacents: Set[Point] = Set(Point(x + 1, y), Point(x - 1, y), Point(x, y + 1), Point(x, y - 1)).filter(_.x >= 0).filter(_.y >= 0)
+    def dist(p: Point) = Math.abs(x - p.x) + Math.abs(y - p.y)
   }
   case class Model(depth: Int, target: Point)
 
@@ -53,29 +54,29 @@ object Day22 extends DayN {
       .values.map(_ % 3).sum
   }
 
+  case class Step(p: Point, g: Gear, t: Int)
+
   def fastestRoute(model: Model): Int = {
     val map = mutable.Map.empty[Point, Int]
     def erosion(point: Point): Int = map.getOrElseUpdate(point, erosionLevel(geoIndex(point, model.target, erosion), model.depth))
+    val queue = mutable.PriorityQueue[Step]()(Ordering.by((s: Step) => s.t + s.p.dist(model.target)).reverse)
     @annotation.tailrec
-    def traverseTime(time: Int, steps: List[(Point, Gear)], hist: Map[(Point, Gear), Int]): Map[(Point, Gear), Int] = steps match {
-      case (point, gear) :: t =>
-        val quickMoves = point.adjacents.filter(p => Terrain.typeOf(erosion(p)).gear.contains(gear)).map(p => (p, gear) -> (time + 1)).toMap
-        val swapGear = (point, (Terrain.typeOf(erosion(point)).gear - gear).head) -> (time + 7)
-        traverseTime(time, t, hist ++ (quickMoves + swapGear).filter(m => hist.getOrElse(m._1, Int.MaxValue) > m._2))
-      case Nil => hist
+    def go(hist: Set[(Point, Gear)]): Int = queue.dequeue match {
+      case Step(target, Torch, t) if target == model.target => t
+      case Step(point, gear, _) if hist.contains((point, gear)) => go(hist)
+      case Step(point, gear, t) =>
+        val moves = point.adjacents.filter(p => Terrain.typeOf(erosion(p)).gear.contains(gear)).map(p => Step(p, gear, t + 1)).toList
+        val swapGear = Step(point, (Terrain.typeOf(erosion(point)).gear - gear).head, t + 7)
+        queue.enqueue((swapGear :: moves).filterNot(s => hist.contains((s.p, s.g))): _*)
+        go(hist + (point -> gear))
     }
-    @annotation.tailrec
-    def go(time: Int, steps: Map[(Point, Gear), Int]): Int = {
-      if (steps.keySet.contains((model.target, Torch))) steps((model.target, Torch))
-      else go(time + 1, traverseTime(time, steps.toList.filter(_._2 == time).map(_._1), steps))
-    }
-
-    go(0, Map((Point(0, 0), Torch) -> 0, (Point(0, 0), Neither) -> 7))
+    queue.enqueue(Step(Point(0, 0), Torch, 0))
+    go(Set.empty)
   }
 
   val testModel = Model(510, Point(10, 10))
   val model = parseInput(readFile())
   println(riskLevel(model))
-  println(Timer.time(fastestRoute(model)))
+  println(fastestRoute(model))
 
 }
