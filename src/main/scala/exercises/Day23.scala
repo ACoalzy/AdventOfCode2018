@@ -1,7 +1,5 @@
 package exercises
 
-import sun.tools.jconsole.Plotter
-
 object Day23 extends DayN {
 
   override val num: Int = 23
