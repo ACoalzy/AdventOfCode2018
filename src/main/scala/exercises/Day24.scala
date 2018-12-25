@@ -40,14 +40,14 @@ object Day24 extends DayN {
   private def targetSelection(model: Set[Group]): Map[Group, Group] = {
     def chooseTarget(g: Group, ts: Set[Group]): Option[Group] =
       if (ts.exists(_.potentialDamage(g) > 0)) Some(ts.maxBy(t => (t.potentialDamage(g), t.att * t.units))) else None
-    def targets(groups: Set[Group], targets: Set[Group]): Map[Group, Group] =
+    def findTargets(groups: Set[Group], targets: Set[Group]): Map[Group, Group] =
       groups.toList.sortBy(g => (g.units * g.att, g.initiative)).reverse
         .foldLeft(Map.empty[Group, Option[Group]])((m, g) => m + (g -> chooseTarget(g, targets diff m.values.flatten.toSet)))
         .collect { case (k, Some(v)) => k -> v }
 
     val (immune, infection) = model.partition(_.team == Immune)
-    val immuneTargets = targets(immune, infection)
-    val infectionTargets = targets(infection, immune)
+    val immuneTargets = findTargets(immune, infection)
+    val infectionTargets = findTargets(infection, immune)
     immuneTargets ++ infectionTargets
   }
 
